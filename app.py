@@ -1,7 +1,8 @@
 from flask import Flask, redirect
 from flask.ext.jsonpify import jsonify
+from flask import render_template
 import requests
-import json
+import urllib
 from bs4 import BeautifulSoup
 
 app = Flask(__name__)
@@ -11,15 +12,13 @@ def index():
 	return redirect('https://github.com/arushs/foodfinder')
 
 @app.route('/<query>')
-def calData(username):
+def getData(query):
 	requestURL = 'http://www.epicurious.com/tools/searchresults?search=' + query
 	data = requests.get(requestURL)
-	file = urllib.urlopen(requesturl)
+	file = urllib.urlopen(requestURL)
 	soup = BeautifulSoup(file)
 	print(soup.prettify())
-	print (len(data.text))
-	cutoff = 10000
-	response = dict()
+	return render_template("index.html", title = "Home", user="Arush", soup=soup)
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)
