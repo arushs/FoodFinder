@@ -8,9 +8,12 @@
         {% endif %}
     </head>
     <body>
-        <div>Microblog: <a href="/">Home</a></div>
-        <div>{{soup }}<div>
-        <hr>
+        <div>Link: <a href="/">Home</a></div>
+        <div>
+        {% for img in soup %}
+            <img alt="" border="0" class="sr_recipe_image" src="{{img}}"/>
+        {% endfor %}
+        </div>
         {% block content %}{% endblock %}
     </body>
 </html>

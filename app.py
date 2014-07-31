@@ -17,8 +17,11 @@ def getData(query):
 	data = requests.get(requestURL)
 	file = urllib.urlopen(requestURL)
 	soup = BeautifulSoup(file)
-	print(soup.prettify())
-	return render_template("index.html", title = "Home", user="Arush", soup=soup)
+	imgs = soup.findAll("img", {"class":"sr_recipe_image"})
+	myList = []
+	for img in imgs:
+		myList.append("http://epicurious.com" + img.get("src"))
+	return render_template("index.html", title = "Home", user="Arush", soup=myList)
 
 if __name__ == '__main__':
 	app.run(debug=True)
