@@ -13,15 +13,15 @@ def index():
 
 @app.route('/<query>')
 def getData(query):
-	requestURL = 'http://www.epicurious.com/tools/searchresults?search=' + query
-	data = requests.get(requestURL)
+	requestURL = 'http://allrecipes.com/search/default.aspx?wt=' + query
 	file = urllib.urlopen(requestURL)
 	soup = BeautifulSoup(file)
-	imgs = soup.findAll("img", {"class":"sr_recipe_image"})
+	divs = soup.html.findAll("div", {"id":"divGridItemWrapper"})
 	myList = []
-	for img in imgs:
-		myList.append("http://epicurious.com" + img.get("src"))
-	return render_template("index.html", title = "Home", user="Arush", soup=myList)
+	for div in divs:
+		img = div.find("img")
+		myList.append([img.get("src"), img.get("title")])
+	return render_template("index.html", title = "Home", user="Arush", imgs=myList)
 
 if __name__ == '__main__':
 	app.run(debug=True)

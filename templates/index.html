@@ -10,8 +10,8 @@
     <body>
         <div>Link: <a href="/">Home</a></div>
         <div>
-        {% for img in soup %}
-            <img alt="" border="0" class="sr_recipe_image" src="{{img}}"/>
+        {% for img in imgs %}
+            <img title="{{img[1]}}" border="0" class="sr_recipe_image" src="{{img[0]}}"/>
         {% endfor %}
         </div>
         {% block content %}{% endblock %}
